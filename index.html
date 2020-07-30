@@ -1,9 +1,369 @@
-﻿<!doctype html>
-<html>
+﻿
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-    <title>个人中心</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>地址发布页</title>
+    <style>
+        *, *:before, *:after {
+            box-sizing: border-box;
+            outline: none;
+            margin: 0;
+            padding: 0;
+        }
+        html, body {
+            font-family: "SF Pro SC", "SF Pro Text", "SF Pro Icons", "AOS Icons", "PingFang SC", "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", "Microsoft Yahei", 微软雅黑, STHeiti, 华文细黑, sans-serif;
+            line-height: 1;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        html {
+            font-size: 16px;
+        } 
+        a {
+            text-decoration: none;
+            color: #fff;
+        }       
+        .container {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: left;
+            padding: 50px 0;
+            overflow: hidden;
+        }
+        .c1 {
+            background-image: linear-gradient(1deg, #f35d44, #f35c44 51%, #dd0f3a);
+            color: #fff;
+        }
+        .c2 {
+            background-color: white;
+            color: #666;
+            padding-top: 0;
+        }
+        .content {
+            width: 100%;
+            max-width: 1024px;
+            display: flex;
+            justify-content: center;
+            padding: 10px 100px;
+            z-index: 1;
+        }
+        .c2 .content {
+            flex-direction: column;
+        }
+        .iphone_img {
+            max-width: 256px;
+            max-height: 512px;
+        }
+        .right {
+            max-width: 518px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .logo_img {
+            max-width: 350px;
+            width: 60%;
+            margin-bottom: 20px;
+        }
+
+        .download_content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin: 30px 0 20px;
+        }
+        .download_content .btn {
+            width: 40%;
+            max-width: 170px;
+            height: 45px;
+            line-height: 45px;
+            text-align: center;
+            margin: 7.5px 9px;
+            border-radius: 35px;
+            background: rgba(255,255,255,.3);
+            color: #fff;
+            font-size: 0.9375em;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 2px;
+            background-size: cover;
+        }
+
+        .QandA {
+            position: relative;
+            display: flex;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .QandA > div{
+            width: 100%;
+            display: flex;
+        }
+        .QandA span {
+            margin-right: 32px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .QandA span:first-of-type {
+            width: 30px;
+            color: #e85151;
+            font-size: 2.25rem;
+        }
+
+        .QandA .btn {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 100px;
+            height: 32px;
+            line-height: 32px;
+            color: #E85151;
+            border: 1px solid #F7CDCD;
+            font-size: 0.9375rem;
+            text-align: center;
+            border-radius: 50px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 600;
+            letter-spacing: 2.8px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            letter-spacing: 1.2px;
+            font-weight: 500;
+        }
+
+        p {
+            font-size: .8rem;
+            letter-spacing: 1.2px;
+            line-height: 1.6;
+        }
+
+        .c2 .main_title { 
+            display: inline-block;
+            position: relative;
+            color: #e85151;
+            border-bottom: 3px solid #D9D9D9;
+            padding-bottom: 15px;
+            z-index: 1;
+        }
+
+        .c2 .main_title:after {
+            content: '';
+            position: absolute;
+            width: 150px;
+            display: block;
+            bottom: -3px;
+            left: 0;
+            border-bottom: 3px solid #e85151;
+        }
+
+        .c2 h2 {
+            font-size: 2.25rem;
+        }
+
+        .c2 h3 {
+            font-size: 1.5rem;
+        }
+
+        .c2 h2 span {
+            color: #666;
+            font-size: 13px;
+            position: absolute;
+            top: 0;
+            left: 160px;
+            line-height: 1.4;
+        }
+
+        .qu {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 7px;
+        }
+        
+        .ans {
+            line-height: 2.13;
+        }
+
+        .line {
+            background-color: #eee;
+            height: 1px;
+        }
+
+        .ground_img {
+            width: 100%;
+            background-color: #f35d44;
+        }
+        .fixed {
+            position: fixed;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0,0,0,.9);
+            z-index: 100;
+        }
+        .fixed.show {
+            display: flex;
+        }
+        .fixed p {
+            width: 100%;
+            color: #e85151;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .fixed p {
+            width: 100%;
+            color: #e85151;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .fixed div {
+            color: #fff;
+            margin-top: 30px;
+            max-width: 350px;
+            line-height: 1.333;
+        }
+        .incap_page-tooltip{ display:none; }
+        @media (max-width: 992px) {
+            .content {
+                padding: 10px 50px;
+            }
+        }
+        @media (max-width: 767px) {
+            html {
+                font-size: 14px;
+            }
+            .iphone_img {
+                display: none;
+            }
+            .right {
+                width: 100%;
+                margin-left: 0;
+            }
+            .img_content > div {
+                margin: 0 10px;
+            }
+            .c2 h2 span {
+                position: initial;
+                display: block;
+                margin-top: 10px;
+            }
+        }
+        @media (max-width: 640px) {
+            .container {
+                padding: 20px 0;
+            }
+            .c2 {
+                padding-bottom: 0;
+            }
+            .content {
+                padding: 0 25px;
+            }
+            .img_content {
+                flex-direction: column;
+                margin-top: 25px;
+            }
+            .img_content > div {
+                margin: 10px 0;
+            }
+            .bank_content img {
+                width: 100%;
+            }
+
+            .bank_content img:first-of-type {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            .QandA {
+                flex-wrap: wrap;
+            }
+            .QandA span {
+                margin-right: 20px;
+            }
+            .QandA .btn {
+                position: initial;
+                margin-top: 10px;
+                margin-left: 45px;
+            }
+        }
+        @media (max-width: 320px) {
+            html {
+                font-size: 12px;
+            }
+            .content {
+                padding: 5px 10px;
+            }
+            .img_content {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+
 </head>
-<body>
-<h1>测试</h1>
-</body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+    <div class="container c1">
+        <div class="content">
+            <div class="right">
+                <img class="logo_img" src="title.png" alt="logo">
+                <h2>极色视频，聚合新鲜</h2>
+                <div class="download_content">
+                    <a class="btn pop" href="https://ni.pa888.xyz" target="_blank">视频站一</a>
+                    <a class="btn pop" href="http://ni.pa888.xyz" target="_blank">视频站二</a>
+                    <a class="btn pop" href="https://ni.pian2020.xyz" target="_blank">视频站三</a>
+                    <a class="btn pop" href="http://ni.pian2020.xyz" target="_blank">视频站四</a>
+                    <a class="btn pop" href="https://ni.pian920.icu" target="_blank">视频站五</a>
+                    <a class="btn pop" href="http://ni.pian920.icu" target="_blank">视频站六</a>
+                    <a class="btn pop" href="https://ni.pian520.icu" target="_blank">视频站七</a>
+                    <a class="btn pop" href="http://ni.pian520.icu" target="_blank">视频站八</a>
+                </div>
+                <p>※如果网站访问不了/屏蔽了，请更换其他网站地址访问</p>
+                <p>※老司机请先收藏永久发布地址：<a href="https://jise.pw" style="color:#fff;text-decoration: underline;">jise.pw</a></p>
+            </div>
+        </div>
+    </div>
+   
+    <div class="container c2">
+        <div class="content">
+            <h2 class="main_title">常见问题<span>各大国内浏览器经常会拦截或提示本站有风险，那是因为本网站包含了宅男们最喜闻乐见的内容，请大家相信我们，不会放恶意病毒！也建议大家最好使用谷歌Chrome浏览器访问本站速度更快更安全</span></h2>
+            <div class="QandA">
+                <div>
+                    <span>Q</span>
+                    <span>
+                        <p class="qu">三步快速访问“极色视频”？</p>
+                        <p class="ans">1.使用“CTRL+D”将本页面添加至您的浏览器收藏夹内，方便下次访问</p>
+                        <p class="ans">2.记住发布页域名“jise.pw”，记住此地址，永久可访问,一秒记住（jise.pw）。</p>
+                        <p class="ans">3.把本站域名手写到您的记事本上</p>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>  
 </html>
